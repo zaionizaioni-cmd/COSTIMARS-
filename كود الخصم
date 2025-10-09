@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>✅ قسيمة خصم مميزة | NAQ8</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --primary: #33cc99;
+      --primary-dark: #1e9d72;
+      --accent: #e6a500;
+      --text: #0f1f17;
+      --bg: #f6fbf9;
+      --white: #ffffff;
+      --gray: #e6f7f2;
+      --dark-green: #2c4f37;
+      --red: #d32f2f;
+      --transition: all 0.3s ease;
+    }
+
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 450px;
+      padding: 0 20px 40px;
+      background: var(--white);
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    /* HEADER */
+    .header {
+      text-align: center;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: var(--white);
+      padding: 40px 20px 35px;
+      border-bottom: 4px solid var(--accent);
+      position: relative;
+    }
+
+    .header::after {
+      content: "";
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--accent);
+    }
+
+    .header h1 {
+      font-weight: 900;
+      font-size: 38px;
+      margin: 0;
+      letter-spacing: -1px;
+    }
+
+    .header .sub {
+      font-size: 17px;
+      opacity: 0.95;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    /* PROMO CARD */
+    .promo-card {
+      text-align: center;
+      padding: 35px 25px;
+    }
+
+    .promo-text {
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--dark-green);
+      margin-bottom: 10px;
+    }
+
+    .discount-value {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--red);
+      margin-bottom: 25px;
+    }
+
+    /* PROMO CODE BOX */
+    .promo-code-box {
+      background: var(--gray);
+      border: 2px dashed var(--primary);
+      border-radius: 20px;
+      padding: 22px 16px 28px;
+      margin: 20px 0 25px;
+      position: relative;
+    }
+
+    .promo-code-box::after {
+      content: "كود الخصم";
+      position: absolute;
+      top: -14px;
+      right: 50%;
+      transform: translateX(50%);
+      background: var(--accent);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .promo-code {
+      font-family: 'Cairo', sans-serif;
+      font-weight: 900;
+      font-size: 52px;
+      color: var(--accent);
+      letter-spacing: 5px;
+      margin: 20px 0;
+      cursor: pointer;
+      transition: transform 0.15s ease-in-out;
+      user-select: all;
+    }
+
+    .promo-code:hover {
+      transform: scale(1.04);
+    }
+
+    /* BUTTON */
+    .btn-copy {
+      background: var(--dark-green);
+      color: var(--white);
+      padding: 15px 28px;
+      font-size: 18px;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 5px 15px rgba(44, 79, 55, 0.4);
+      width: 80%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-copy:hover {
+      background: #1e3626;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(44, 79, 55, 0.5);
+    }
+
+    .copy-feedback {
+      background: var(--primary) !important;
+      box-shadow: 0 0 25px var(--primary);
+      transform: scale(1.05);
+    }
+
+    /* FOOTER NOTICE */
+    .iraqi-style {
+      font-size: 16px;
+      color: var(--text);
+      font-weight: 700;
+      margin-top: 30px;
+      padding: 15px 0;
+      border-top: 1px solid #e0efe9;
+      border-bottom: 1px solid #e0efe9;
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      font-size: 14px;
+      color: var(--dark-green);
+      opacity: 0.85;
+      font-weight: 600;
+      margin-top: 20px;
+    }
+
+    .footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .footer a:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .header h1 { font-size: 32px; }
+      .promo-code { font-size: 42px; }
+      .btn-copy { width: 100%; font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>تَكْسِي نَاقِل</h1>
+      <p class="sub">أفضل تجربة توصيل، بلمسة زر واحدة. انطلق الآن.</p>
+    </div>
+
+    <div class="promo-card">
+      <div class="promo-text">لقد ربحت قسيمة خصم خاصة!</div>
+      <div class="discount-value">وفر الأن 30%   </div>
+
+      <div class="promo-code-box">
+        <div id="promoCode" class="promo-code">NAQ8</div>
+        <button id="copyButton" class="btn-copy">
+          <i class="fas fa-copy"></i>
+          <span>اضغط لنسخ الكود</span>
+        </button>
+      </div>
+
+      <div class="iraqi-style">
+        <i class="fas fa-bolt" style="color:var(--accent);"></i> العرض فعال ومتاح الآن لفترة محدودة جداً!
+      </div>
+    </div>
+
+    <div class="footer">
+      <a href="#">استخدم تطبيق ناقل وابدأ رحلتك</a> | © 2025 جميع الحقوق محفوظة
+    </div>
+  </div>
+
+  <script>
+    function copyToClipboard(text, btnElement) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => showCopyFeedback(btnElement));
+      } else {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+        showCopyFeedback(btnElement);
+      }
+    }
+
+    function showCopyFeedback(btn) {
+      const original = btn.innerHTML;
+      btn.classList.add("copy-feedback");
+      btn.innerHTML = '<i class="fas fa-check"></i><span>تم النسخ بنجاح! 🎉</span>';
+      setTimeout(() => {
+        btn.classList.remove("copy-feedback");
+        btn.innerHTML = original;
+      }, 2000);
+    }
+
+    window.onload = () => {
+      const code = document.getElementById("promoCode").textContent.trim();
+      document.getElementById("copyButton").onclick = () => copyToClipboard(code, document.getElementById("copyButton"));
+    };
+  </script>
+</body>
+</html>
