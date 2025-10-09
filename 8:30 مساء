@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>💌 نظام الإشعارات</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&display=swap" rel="stylesheet">
+  <!-- FIX: Replaced outdated kit script with stable Font Awesome 6 CDN link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* ------------------------------------ */
+    /* 1. Root & Base Styles */
+    /* ------------------------------------ */
+    :root {
+      --primary: #33cc99; /* Bright Green - Kept for icons/accents */
+      --text: #0f1f17; /* Very Dark Green/Black */
+      --bg-rich: #2aad83; /* NEW: Rich background color, derived from logo color */
+      --border: #e0efe9;
+      --accent: #e6a500; /* Gold/Yellow Accent */
+      --white: #ffffff;
+      --dark-green: #2c4f37; /* Deep Marketing Green */
+      --red: #d32f2f;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    body {
+      font-family: 'Tajawal', sans-serif;
+      /* UPDATED: Changed background to the rich green color */
+      background: var(--bg-rich); 
+      /* Changed text color to white for better visibility against the dark background, though most text is in the white card */
+      color: var(--white); 
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      /* Center everything on the page */
+      display: flex;
+      justify-content: center; 
+      align-items: center; 
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+      padding: 0;
+      /* Ensure container does not restrict body centering */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    /* New Card Style for Center Content */
+    .notification-center-card {
+        background: var(--white); /* White background for the card (High contrast) */
+        border-radius: 24px; /* Rounded corners */
+        padding: 40px 20px; /* Internal spacing */
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25); /* Stronger shadow on rich background */
+        text-align: center;
+        width: 100%; /* Take full width of container */
+        max-width: 400px; /* Limit width */
+        border: 1px solid var(--border); /* Subtle light border */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* New Logo Styling */
+    .app-logo {
+        width: 80px; /* Standard app icon size */
+        height: 80px;
+        border-radius: 16px; /* Match other rounded elements */
+        margin-bottom: 20px; /* Space below the logo and above the icon */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for the logo */
+        object-fit: contain; /* Ensure image fits nicely */
+    }
+
+    /* ------------------------------------ */
+    /* 2. Centered Large Icon */
+    /* ------------------------------------ */
+    .notification-icon-wrapper {
+      position: relative;
+      cursor: pointer;
+      margin-bottom: 20px; /* Space between icon and text */
+    }
+
+    .notification-icon {
+      color: var(--primary);
+      font-size: 120px; /* Much larger icon size */
+      transition: color 0.2s, transform 0.2s;
+      text-shadow: 0 6px 20px rgba(51, 204, 153, 0.6); /* Enhanced shadow */
+    }
+
+    .notification-icon:hover {
+      color: #2aad83;
+      transform: scale(1.05); /* Slight growth on hover */
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: 0px; 
+      right: 0px; 
+      background-color: var(--red);
+      color: var(--white);
+      border-radius: 50%;
+      padding: 8px 12px; /* Larger padding for visibility */
+      font-size: 16px; /* Larger text in badge */
+      font-weight: 700;
+      border: 4px solid var(--white); /* Border contrasts with card background */
+      line-height: 1;
+      box-shadow: 0 0 10px rgba(211, 47, 47, 0.7); 
+    }
+    
+    /* Styling for the text under the icon */
+    .center-prompt {
+        font-size: 22px; /* Made text larger and clearer */
+        color: var(--dark-green);
+        font-weight: 800; /* Bolder text */
+        margin-top: 10px; /* Adjusted margin */
+        text-align: center;
+        line-height: 1.4;
+    }
+
+
+    /* ------------------------------------ */
+    /* 3. Modal / Pop-up Styles (Kept largely the same) */
+    /* ------------------------------------ */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: var(--white);
+      color: var(--text);
+      width: 90%;
+      max-width: 350px;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      transform: scale(0.8);
+      transition: transform 0.3s ease-out;
+      border-top: 5px solid var(--primary);
+    }
+    
+    .modal-overlay.open .modal-content {
+        transform: scale(1);
+    }
+
+    .modal-icon {
+        color: var(--accent);
+        font-size: 48px;
+        margin-bottom: 15px;
+    }
+
+    .modal-title {
+        font-size: 24px;
+        font-weight: 900;
+        margin-bottom: 10px;
+        color: var(--dark-green);
+    }
+
+    .modal-message {
+        font-size: 16px;
+        color: var(--text);
+        margin-bottom: 25px;
+    }
+
+    .modal-close-btn {
+      background-color: var(--primary);
+      color: var(--white);
+      border: none;
+      padding: 10px 25px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 16px;
+      transition: var(--transition);
+    }
+
+    .modal-close-btn:hover {
+      background-color: #2aad83;
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <!-- Centered Large Icon Structure -->
+    <div class="notification-center-card">
+        <!-- Naqel Logo with Fallback/Placeholder -->
+       
+        <div id="notificationIconWrapper" class="notification-icon-wrapper">
+            <!-- Mailbox Icon -->
+            <i id="notificationIcon" class="fas fa-envelope notification-icon"></i>
+            <!-- Unread Badge -->
+            <span id="notificationBadge" class="notification-badge">1</span>
+            
+        </div>
+        <p class="center-prompt">اضغط على الرسالة لرؤية إشعارك !</p>
+    </div>
+
+  </div>
+
+  <!-- Modal Structure -->
+  <div id="notificationModal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-icon"><i class="fas fa-bell"></i></div>
+      <div class="modal-title">- يلا نبدأ يوم جديد بلا تأخير.</div>
+      <div class="modal-message">
+- ﻻﺗﺘﺄﺧﺮ ﻋﻦ ﻣﻮﻋﺪك، اﺣﺠﺰ رﺣﻠﺘﻚ ﺑﺜﻮاﻧﻲ وﺧﻠﻨﺎ ﻧﻮﺻﻠّﻚ ﻗﺒﻞ اﻟﻮﻗﺖ
+ </div>
+      <button id="closeButton" class="modal-close-btn">حسنا</button>
+    </div>
+  </div>
+
+  <script>
+    window.onload = function() {
+      const modal = document.getElementById('notificationModal');
+      const iconWrapper = document.getElementById('notificationIconWrapper');
+      const closeButton = document.getElementById('closeButton');
+      const badge = document.getElementById('notificationBadge');
+      const modalContent = document.querySelector('.modal-content');
+
+      /**
+       * Opens the notification modal.
+       */
+      function openModal() {
+        modal.classList.add('open');
+        // Simulate reading the notification by hiding the badge
+        if (badge) {
+            badge.style.display = 'none';
+        }
+      }
+
+      /**
+       * Closes the notification modal.
+       */
+      function closeModal() {
+        modal.classList.remove('open');
+      }
+
+      // 1. Open the modal when the icon is clicked
+      iconWrapper.addEventListener('click', openModal);
+
+      // 2. Close the modal when the explicit close button is clicked
+      closeButton.addEventListener('click', closeModal);
+
+      // 3. Close the modal when the overlay (background) is clicked
+      modal.addEventListener('click', (event) => {
+          // Check if the click occurred directly on the overlay, not on the modal content
+          if (event.target === modal) {
+              closeModal();
+          }
+      });
+      
+      // Optional: Prevent closing when clicking inside the content box (good practice)
+      modalContent.addEventListener('click', (event) => {
+          event.stopPropagation();
+      });
+    };
+  </script>
+</body>
+</html>
