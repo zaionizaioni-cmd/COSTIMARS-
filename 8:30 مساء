@@ -227,7 +227,7 @@
   <div id="notificationModal" class="modal-overlay">
     <div class="modal-content">
       <div class="modal-icon"><i class="fas fa-bell"></i></div>
-      <div class="modal-title">- يلا نبدأ يوم جديد بلا تأخير.</div>
+      <div class="modal-title">-   يوم جديد بلا تأخير.</div>
       <div class="modal-message">
 - ﻻﺗﺘﺄﺧﺮ ﻋﻦ ﻣﻮﻋﺪك، اﺣﺠﺰ رﺣﻠﺘﻚ ﺑﺜﻮاﻧﻲ وﺧﻠﻨﺎ ﻧﻮﺻﻠّﻚ ﻗﺒﻞ اﻟﻮﻗﺖ
  </div>
