@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>💌 نظام الإشعارات - ناقل</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* ------------------------------------ */
+    /* 1. Root & Base Styles */
+    /* ------------------------------------ */
+    :root {
+      --primary: #33cc99; /* Bright Green - Kept for icons/accents */
+      --primary-light: #5cd7ad;
+      --primary-dark: #2aad83;
+      --text: #0f1f17; /* Very Dark Green/Black */
+      --text-light: #5a6c63;
+      --bg-rich: #2aad83; /* Rich background color */
+      --bg-gradient: linear-gradient(135deg, #2aad83 0%, #1e8a68 100%);
+      --border: #e0efe9;
+      --accent: #e6a500; /* Gold/Yellow Accent */
+      --accent-light: #ffc233;
+      --white: #ffffff;
+      --white-transparent: rgba(255, 255, 255, 0.9);
+      --dark-green: #2c4f37; /* Deep Marketing Green */
+      --red: #d32f2f;
+      --red-light: #ff6659;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+      --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.12);
+      --shadow-lg: 0 15px 40px rgba(0, 0, 0, 0.18);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--white);
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    /* ------------------------------------ */
+    /* 2. Header & Branding */
+    /* ------------------------------------ */
+    .brand-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .brand-logo {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius-md);
+      margin-bottom: 12px;
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-logo::before {
+      content: "ن";
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand-name {
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--white);
+      margin: 0;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-subtitle {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.8);
+      margin: 4px 0 0 0;
+      font-weight: 500;
+    }
+
+    /* ------------------------------------ */
+    /* 3. Notification Card */
+    /* ------------------------------------ */
+    .notification-center-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .notification-center-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--primary);
+      z-index: 1;
+    }
+
+    .notification-center-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
+    }
+
+    /* ------------------------------------ */
+    /* 4. Notification Icon */
+    /* ------------------------------------ */
+    .notification-icon-wrapper {
+      position: relative;
+      cursor: pointer;
+      margin-bottom: 20px;
+      transition: var(--transition);
+    }
+
+    .notification-icon {
+      color: var(--primary);
+      font-size: 100px;
+      transition: var(--transition);
+      filter: drop-shadow(0 6px 15px rgba(51, 204, 153, 0.4));
+      position: relative;
+      z-index: 2;
+    }
+
+    .notification-icon-wrapper:hover .notification-icon {
+      color: var(--primary-dark);
+      transform: scale(1.08);
+    }
+
+    .notification-icon-wrapper::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: rgba(51, 204, 153, 0.1);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      transition: var(--transition);
+    }
+
+    .notification-icon-wrapper:hover::after {
+      width: 140px;
+      height: 140px;
+      background: rgba(51, 204, 153, 0.15);
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: linear-gradient(135deg, var(--red) 0%, var(--red-light) 100%);
+      color: var(--white);
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      border: 3px solid var(--white);
+      box-shadow: 0 3px 8px rgba(211, 47, 47, 0.4);
+      z-index: 3;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(211, 47, 47, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(211, 47, 47, 0);
+      }
+    }
+
+    /* ------------------------------------ */
+    /* 5. Text Content */
+    /* ------------------------------------ */
+    .center-prompt {
+      font-size: 20px;
+      color: var(--dark-green);
+      font-weight: 800;
+      margin: 10px 0 0 0;
+      text-align: center;
+      line-height: 1.4;
+      position: relative;
+    }
+
+    .center-subtitle {
+      font-size: 14px;
+      color: var(--text-light);
+      font-weight: 500;
+      margin: 8px 0 0 0;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* ------------------------------------ */
+    /* 6. Modal / Pop-up Styles */
+    /* ------------------------------------ */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: var(--white);
+      color: var(--text);
+      width: 90%;
+      max-width: 380px;
+      padding: 0;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+      transform: scale(0.9) translateY(20px);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      overflow: hidden;
+      border-top: 4px solid var(--primary);
+    }
+
+    .modal-overlay.open .modal-content {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal-header {
+      padding: 24px 24px 16px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-icon {
+      color: var(--accent);
+      font-size: 48px;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 4px 8px rgba(230, 165, 0, 0.3));
+    }
+
+    .modal-title {
+      font-size: 22px;
+      font-weight: 900;
+      margin-bottom: 8px;
+      color: var(--dark-green);
+      line-height: 1.3;
+    }
+
+    .modal-subtitle {
+      font-size: 14px;
+      color: var(--text-light);
+      margin: 0;
+    }
+
+    .modal-body {
+      padding: 20px 24px;
+    }
+
+    .modal-message {
+      font-size: 16px;
+      color: var(--text);
+      margin: 0;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .modal-footer {
+      padding: 16px 24px 24px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .modal-close-btn {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: var(--white);
+      border: none;
+      padding: 12px 32px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 16px;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .modal-close-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(51, 204, 153, 0.4);
+    }
+
+    .modal-close-btn:active {
+      transform: translateY(0);
+    }
+
+    /* ------------------------------------ */
+    /* 7. Footer */
+    /* ------------------------------------ */
+    .app-footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* ------------------------------------ */
+    /* 8. Responsive Adjustments */
+    /* ------------------------------------ */
+    @media (max-width: 480px) {
+      .container {
+        padding: 16px;
+      }
+      
+      .notification-center-card {
+        padding: 28px 20px;
+      }
+      
+      .notification-icon {
+        font-size: 85px;
+      }
+      
+      .center-prompt {
+        font-size: 18px;
+      }
+      
+      .modal-content {
+        max-width: 340px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Brand Header -->
+    <div class="brand-header">
+ 
+    
+    <!-- Notification Card -->
+    <div class="notification-center-card">
+      <div id="notificationIconWrapper" class="notification-icon-wrapper">
+        <i id="notificationIcon" class="fas fa-envelope notification-icon"></i>
+        <span id="notificationBadge" class="notification-badge">1</span>
+      </div>
+      <p class="center-prompt">اضغط على الرسالة لرؤية إشعارك</p>
+      <p class="center-subtitle">لديك إشعار واحد غير مقروء</p>
+    </div>
+    
+    <!-- Footer -->
+    <div class="app-footer">
+      <p>جميع الحقوق محفوظة © 2025 ناقل</p>
+    </div>
+  </div>
+
+  <!-- Modal Structure -->
+  <div id="notificationModal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-icon"><i class="fas fa-bell"></i></div>
+        <h2 class="modal-title">يوم جديد بلا تأخير</h2>
+        <p class="modal-subtitle">إشعار مهم</p>
+      </div>
+      <div class="modal-body">
+        <p class="modal-message">
+-صباح الخیر، جاھز لیومك؟ خلي تكسي ناقل یوصلك وین ما ترید .    </p>
+      </div>
+      <div class="modal-footer">
+        <button id="closeButton" class="modal-close-btn">
+          <i class="fas fa-check"></i>
+          حسناً
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.onload = function() {
+      const modal = document.getElementById('notificationModal');
+      const iconWrapper = document.getElementById('notificationIconWrapper');
+      const closeButton = document.getElementById('closeButton');
+      const badge = document.getElementById('notificationBadge');
+      const modalContent = document.querySelector('.modal-content');
+
+      /**
+       * Opens the notification modal.
+       */
+      function openModal() {
+        modal.classList.add('open');
+        // Simulate reading the notification by hiding the badge
+        if (badge) {
+            badge.style.display = 'none';
+        }
+      }
+
+      /**
+       * Closes the notification modal.
+       */
+      function closeModal() {
+        modal.classList.remove('open');
+      }
+
+      // 1. Open the modal when the icon is clicked
+      iconWrapper.addEventListener('click', openModal);
+
+      // 2. Close the modal when the explicit close button is clicked
+      closeButton.addEventListener('click', closeModal);
+
+      // 3. Close the modal when the overlay (background) is clicked
+      modal.addEventListener('click', (event) => {
+          // Check if the click occurred directly on the overlay, not on the modal content
+          if (event.target === modal) {
+              closeModal();
+          }
+      });
+      
+      // Optional: Prevent closing when clicking inside the content box (good practice)
+      modalContent.addEventListener('click', (event) => {
+          event.stopPropagation();
+      });
+    };
+  </script>
+</body>
+</html>
